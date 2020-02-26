@@ -34,8 +34,9 @@
 
 			firstFac = getFactors(first);
 			secFac = getFactors(sec);
-
+			document.write('Factors of ' +first+ ': ');
 			showFactors(firstFac);
+			document.write('Factors of ' +sec+ ': ');
 			showFactors(secFac);
 
 			if((first == addFactors(secFac)) && (sec == addFactors(firstFac))){

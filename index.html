@@ -14,7 +14,7 @@
 	<a href="amicable.html">Go to Amicable Page</a><br/><br/>
 	Enter 5 numbers separated by spaces: <input id="userNums"><br><br>
 	Enter Lucky Ball number: <input id="userLuckyBall"><br><br>
-	<button id="submit">Submit</button>
+	<button id="submit">Submit</button><br/><br/>
 
 
 	<script language="javascript">
@@ -27,8 +27,23 @@
 			randNums[i] = temp;
 		}
 		var randLuck = Math.floor(Math.random() * 17 + 1);
-		document.write(randNums + '<br/>'); 
-		document.write(randLuck + '<br/>'); 
+		// document.write(randNums + '<br/>'); 
+		// document.write(randLuck + '<br/>'); 
+		document.write('Lottery Numbers Before Sort: <br/><br/>'); 
+
+		for( i = 0; i < randNums.length; i++){
+		  document.write('Item: ' + (i + 1) + ' of ' + 5 + ' is ' +  randNums[i] + '<br/>'); 
+		}
+		document.write('Lucky ball is ' +  randLuck + '<br/><br/>'); 
+
+		randNums.sort(function(a, b){return a - b});
+
+		document.write('Lottery Numbers After Sort: <br/><br/>'); 
+
+		for( i = 0; i < randNums.length; i++){
+		  document.write('Item: ' + (i + 1) + ' of ' + 5 + ' is ' +  randNums[i] + '<br/>'); 
+		}
+		document.write('Lucky ball is ' +  randLuck + '<br/><br/>'); 
 
 		function submit() {
 			var stringFromUser = document.getElementById("userNums").value;
@@ -40,30 +55,14 @@
 			for(var i = 0; i < userNums.length; i++){
 				userNums[i] = parseInt(userNums[i]);
 			}
-			document.write(userNums + '<br>');
-			document.write(randNums + '<br>');
-
-
-			for( i = 0; i < randNums.length; i++){
-			  document.write('Item: ' + (i + 1) + ' of ' + randNums.length + ' is ' +  randNums[i] + '<br/>'); 
-			}
-			randNums.sort(function(a, b){return a - b});
 			userNums.sort(function(a, b){return a - b});
 
-			document.write(userNums + '<br/>'); 
-			document.write(randNums + '<br/>'); 
-
-			for( i = 0; i < randNums.length; i++){
-			  document.write('Item: ' + (i + 1) + ' of ' + randNums.length + ' is ' +  randNums[i] + '<br/>'); 
-			}
 
 			matching = 0;
 			for(i = 0; i < 5; i ++){
 				for(j = 0; j < 5;j++){
 					if(randNums[i] == userNums[j]){
 						matching++;
-						break;
-					}else if(randNums[i] < userNums[i]){
 						break;
 					}
 				}
@@ -74,13 +73,13 @@
 			}else{
 				luckBallMatch = false;
 			}
-			document.write("There were " + matching + "matching numbers and luck ball matched is "  + luckBallMatch +'<br/>'); 
+			document.write("There were " + matching + " matching numbers and lucky ball matched is "  + luckBallMatch +'<br/><br/>'); 
 			winnings = findWinnings(matching, luckBallMatch);
 			document.write("You won " + winnings + '<br/>'); 
 		}		
 
 		function findWinnings(w, lb){
-			winnings = "0";
+			winnings = "$0";
 			switch(w){
 				case 0:
 					if(lb){

@@ -11,43 +11,74 @@
 </style>
 <body>
 	<h1>Amicable</h1>
-	<a href="index.html">Lottery</a>
-	Enter 5 numbers separated by spaces: <input id="userNums"><br><br>
-	Enter Lucky Ball number: <input id="userLuckyBall"><br><br>
+	<a href="index.html">Go to Lottery Page</a><br/><br/>
+	Enter first number: <input id="firstNum"><br><br>
+	Enter second number: <input id="secondNum"><br><br>
 	<button id="submit">Submit</button>
 
 
 	<script language="javascript">
-		var arrNums = new Array(6);
-		for(var i = 0; i < 5; i++){
-			arrNums[i] = Math.floor(Math.random() * 47 + 1);
-		}
-		arrNums[5] = Math.floor(Math.random() * 17 + 1);
+		//document.write(isFactor(4,2));
+		//document.write(isFactor(5,2));
+		//document.write(isFactor(9,3));
+		// document.write(getFactors(10));
+		// document.write(addFactors(new Array(1, 2, 5)));
+
+		//read in and determine whether the numbers are amicable
 		function submit() {
-			var nums = document.getElementById("userNums").value;
-			var luck = parseInt(document.getElementById("userLuckyBall").value);
+			first = parseInt(document.getElementById("firstNum").value);
+			sec = parseInt(document.getElementById("secondNum").value);
 
-			var actualNums = new Array(6);
+			document.write("first num is: " + first + "<br/>");
+			document.write("second num is: " + sec +  "<br/>");
 
-			actualNums = nums.split(" ");
-			actualNums[5] = luck;
-			for(var i = 0; i < actualNums.length; i++){
-				actualNums[i] = parseInt(actualNums[i]);
-			}
-			document.write(actualNums + '<br>');
+			firstFac = getFactors(first);
+			secFac = getFactors(sec);
 
+			showFactors(firstFac);
+			showFactors(secFac);
 
-			for(var i = 0; i < arrNums.length; i++){
-			  document.write('Item: ' + (i + 1) + ' of ' + arrNums.length + ' is ' +  arrNums[i] + '<br/>'); 
-			}
-			arrNums.sort(function(a, b){return a - b});
-			document.write(arrNums + '<br/>'); 
+			if((first == addFactors(secFac)) && (sec == addFactors(firstFac))){
+				document.write("They are amicable!!")
+			}else{
+				document.write("They aren't amicable!!")
 
-			for(var i = 0; i < arrNums.length; i++){
-			  document.write('Item: ' + (i + 1) + ' of ' + arrNums.length + ' is ' +  arrNums[i] + '<br/>'); 
 			}
 
-		}		
+
+
+		}	
+		//takes two input parameters: a number and a test number.  The function should return true if the test number divides evenly into the number
+		function isFactor(n, t){
+			if((n % t) == 0){
+				return true;
+			}else{
+				return false;
+			}
+		}	
+		// takes an array as a parameter and displays all of its items
+		function showFactors(arr){
+			document.write(arr + '<br/>');
+		}
+		//takes an array as a parameter and returns the sum of all of the elements
+		function addFactors(arr){
+			var sum = 0;
+			for (var i = 0; i < arr.length; i++) {
+				sum = sum + arr[i];
+			}
+			return sum;
+		}
+		// takes a number as a parameter and returns an array with all possible factors
+		function getFactors(n){
+			arr = new Array();
+			for (var i = 0; i < n; i++) {
+				if(isFactor(n, i)){
+					arr.push(i);
+				}
+			}
+			return arr;
+		}
+
 		document.getElementById('submit').addEventListener('click', submit);
 
 	</script>
